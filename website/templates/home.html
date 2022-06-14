@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+<form method='POST' enctype="multipart/form-data">
+	<h3 align='center'>New PPI Dissemination System</h3>
+	<div class='form-group'>
+		<label for='event'>Event Text</label>
+		<input type='text' class='form-control' id='event' name='event' placeholder='Enter Event Text Here'/>
+	</div>
+	<br/>
+	<button type='submit' value = 'Upload' class='btn btn-primary'>Submit</button>
+</form>
+{% endblock %}

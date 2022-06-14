@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <title>Output</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+      integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+      crossorigin=""/>
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/universal.css') }}"/>
+      <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+      integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+      crossorigin=""></script>
+      
+      <script type="text/javascript" src="{{ url_for('static', filename='js/html2canvas.js') }}"></script>
+      <script type="text/javascript" src="{{ url_for('static', filename='js/html2canvas.min.js') }}"></script>
+    </head>
+    <body>
+      <div id="capture">
+        <img src="{{url_for('static', filename='img/bmkg_ppi_header.png')}}"/>
+        <div id="map"></div>
+        <script>
+        {% for marker in markers %}
+          // initialize the map
+          var map = L.map('map',{renderer: L.canvas()}).setView(["{{ marker['lat'] }}" ,"{{ marker['lon'] }}"], 9);
+          // load a tile layer
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+          {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          maxZoom: 9,
+          minZoom: 9
+          }).addTo(map);
+          // add marker to map
+          var marker = L.marker(["{{ marker['lat'] }}" ,"{{ marker['lon'] }}"]).addTo(map);
+          // add circle to map
+          var circle = L.circle(["{{ marker['lat'] }}" ,"{{ marker['lon'] }}"],
+          {
+          color: 'red',
+          fillColor: '#f03',
+          fillOpacity: 0.5,
+          radius:"{{ marker ['mag'] }}"*1000
+          }).addTo(map);
+          // add pop up for Magnitude text
+          //var popup = L.popup()
+          //.setLatLng(["{{ marker['lat'] }}" ,"{{ marker['lon'] }}"])
+          //.setContent("<b> Mag : {{ marker ['mag'] }}</b>")
+          //.addTo(map);
+          marker.bindTooltip("<b> Mag : {{ marker ['mag'] }}</b>",{
+            direction:'top',
+            className:'mag_str',
+            permanent:true,
+            offset:[-15,-10]
+          }).addTo(map)
+        {% endfor %}
+        </script>
+        <p style="width:400px;" align="justify">{{event_str}}</p>        
+      </div>
+      <script type="text/javascript" src="{{ url_for('static', filename='js/div2img.js') }}"></script>
+      <button id="download_button" onclick="takeimage()">click to download</button>
+    </body>
+  </html>
