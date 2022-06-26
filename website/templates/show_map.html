@@ -14,7 +14,9 @@
     </head>
     <body>
       <div id="capture">
-        <img src="{{url_for('static', filename='img/bmkg_ppi_header.png')}}"/>
+        {% for header in header %}
+        <img src="{{url_for('static', filename=header)}}"/>
+        {% endfor %}
         <div id="map"></div>
         <script>
         {% for marker in markers %}
@@ -43,14 +45,14 @@
           //.setContent("<b> Mag : {{ marker ['mag'] }}</b>")
           //.addTo(map);
           marker.bindTooltip("<b> Mag : {{ marker ['mag'] }}</b>",{
-            direction:'top',
-            className:'mag_str',
-            permanent:true,
-            offset:[-15,-10]
+          direction:'top',
+          className:'mag_str',
+          permanent:true,
+          offset:[-15,-10]
           }).addTo(map)
         {% endfor %}
         </script>
-        <p style="width:400px;" align="justify">{{event_str}}</p>        
+        <p style="width:400px;" align="justify">{{event_str}}</p>
       </div>
       <script type="text/javascript" src="{{ url_for('static', filename='js/div2img.js') }}"></script>
       <button id="download_button" onclick="takeimage()">click to download</button>
