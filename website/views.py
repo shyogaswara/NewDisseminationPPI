@@ -14,7 +14,7 @@ views = Blueprint('views', __name__)
 def home():
     if request.method == 'POST':
         event = request.form.get('event')
-        eq_params = _get_params(event)
+        eq_params, header_str = _get_params(event)
 
         markers = [
         {
@@ -23,5 +23,9 @@ def home():
         'mag':eq_params[0]
         }
         ]
-        return render_template('show_map.html',markers=markers, event_str=event)
+        return render_template('show_map.html',
+            markers=markers,
+            event_str=event,
+            head_logo=header_str
+            )
     return render_template('home.html')

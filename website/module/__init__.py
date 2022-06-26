@@ -21,7 +21,12 @@ def _get_params(txt_str_or_short_msgs):
 
     if _origin == 'BMKG-PGR VI' or _origin == 'BMKG-GSI':
         _eq_params = _if_PPI_or_GSI(_param)
+        if _origin == 'BMKG-PGR VI':
+            _header_str = 'img/bmkg_ppi_header.png'
+        else:
+            _header_str = 'img/bmkg_gsi_header.png'
     elif _origin =='BMKG-KSI':
         _eq_params = _if_KSI(_param)
+        _header_str = 'img/bmkg_ksi_header.png'
 
-    return _eq_params
+    return _eq_params, _header_str

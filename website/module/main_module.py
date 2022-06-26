@@ -79,7 +79,7 @@ def _if_KSI(txt_str_or_msg_param):
         eq_lon = -1*float(location[4])
     eq_pos = location[6][1:-1]
 
-    eq_dep = float((txt_split[3].split(':')[1]).split(' ')[0])
+    eq_dep = float((txt_split[3].split(' ')[2]))
 
     return eq_mag, eq_ot, eq_lat, eq_lon, eq_pos, eq_dep
 
