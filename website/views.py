@@ -26,6 +26,10 @@ def home():
         return render_template('show_map.html',
             markers=markers,
             event_str=event,
+<<<<<<< HEAD
             head_logo=header_str
+=======
+            header=header_str
+>>>>>>> 5f99537fe4238c8fe3a0e0660e145dec8bbb06ff
             )
     return render_template('home.html')
