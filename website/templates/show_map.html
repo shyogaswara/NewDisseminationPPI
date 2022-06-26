@@ -14,9 +14,7 @@
     </head>
     <body>
       <div id="capture">
-        {% for header in header %}
-        <img src="{{url_for('static', filename=header)}}"/>
-        {% endfor %}
+        <img src="{{url_for('static', filename=head_logo)}}"/>
         <div id="map"></div>
         <script>
         {% for marker in markers %}
